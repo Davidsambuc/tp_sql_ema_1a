@@ -81,3 +81,22 @@ JOIN Matiere m ON m.idMatiere = n.idMatiere
 WHERE e.prenomEleve = 'VADNAP'
 AND e.nomEleve = 'PANDAV'
 AND m.dateExam BETWEEN TO_DATE('2018/11/05','yyyy/mm/dd') AND TO_DATE('2019/11/06','yyyy/mm/dd')
+
+CREATE TABLE Prof(
+ idProf NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+ nomProf VARCHAR (32),
+ prenomProf VARCHAR (32),
+ PRIMARY KEY (idProf),
+);
+
+INSERT INTO Prof(nomProf,prenomProf)
+SELECT nomProf, prenomProf
+FROM Matiere
+
+ALTER TABLE MATIERE ADD (idProf NUMBER)
+
+INSERT INTO MATIERE(idProf)
+SELECT idProf
+FROM Prof
+#WHERE 
+#renseigner id dans matiere puis supprimer nom prenom dans matiere
